@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "881723513767",
+    "project_id": "userrecord-daf16",
+    "storage_bucket": "userrecord-daf16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881723513767:android:b35320c0e91d5ada3f3482",
+        "android_client_info": {
+          "package_name": "com.example.user_record"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh9rCSm6P_rwviFyjeVz6G7fe7pSGB52o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

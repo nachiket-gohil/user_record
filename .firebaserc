@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "userrecord-daf16",
+    "dev": "userrecord-daf16"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
