@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/entity/auth_user.dart';
 import '../../domain/repo/auth_repository.dart';
 import '../model/auth_user_model.dart';
-import '../sources/remote_data_source.dart';
+import '../sources/firebase_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final RemoteDataSource remoteDataSource;
+  final FirebaseDataSource remoteDataSource;
 
   AuthRepositoryImpl(this.remoteDataSource);
 

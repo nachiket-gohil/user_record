@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../presentation/view/detail_page.dart';
-import '../presentation/view/list_page.dart';
+import '../presentation/view/auth_checker_page.dart';
 import '../presentation/view/login_page.dart';
-import '../presentation/view/splash_page.dart';
+import '../presentation/view/user_detail_page.dart';
+import '../presentation/view/user_list_page.dart';
 import 'analytics_mixin.dart';
 
 class AppRoute {

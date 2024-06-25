@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_record/config/app_route.dart';
 
 import '../bloc/auth_cubit.dart';
-import 'list_page.dart';
 import 'login_page.dart';
+import 'user_list_page.dart';
 
 class AuthChecker extends StatefulWidget {
   const AuthChecker({super.key});

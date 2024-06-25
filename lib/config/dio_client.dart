@@ -1,23 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:user_record/config/analytics_mixin.dart';
 
 class DioClient {
   final Dio dio;
-  final FirebaseAnalytics analytics;
   final FirebaseAuth auth;
 
-  DioClient(this.dio, this.analytics, this.auth) {
-    dio.interceptors.add(LoggingInterceptor(analytics, auth));
+  DioClient(this.dio, this.auth) {
+    dio.interceptors.add(LoggingInterceptor(auth));
   }
 }
 
 class LoggingInterceptor extends Interceptor with GoogleAnalyticsMixin {
-  final FirebaseAnalytics analytics;
   final FirebaseAuth auth;
 
-  LoggingInterceptor(this.analytics, this.auth);
+  LoggingInterceptor(this.auth);
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {

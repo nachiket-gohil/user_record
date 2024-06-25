@@ -7,7 +7,7 @@ import 'package:user_record/config/analytics_mixin.dart';
 import 'package:user_record/config/app_route.dart';
 import 'package:user_record/config/injection_container.dart' as di;
 import 'package:user_record/presentation/bloc/auth_cubit.dart';
-import 'package:user_record/presentation/view/splash_page.dart';
+import 'package:user_record/presentation/view/auth_checker_page.dart';
 
 import 'config/firebase_options.dart';
 import 'domain/usecase/fetch_user_details_usecase.dart';

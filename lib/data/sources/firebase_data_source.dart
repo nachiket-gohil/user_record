@@ -3,10 +3,10 @@ import 'package:user_record/config/analytics_mixin.dart';
 
 import '../model/auth_user_model.dart';
 
-class RemoteDataSource with GoogleAnalyticsMixin {
+class FirebaseDataSource with GoogleAnalyticsMixin {
   final FirebaseAuth firebaseAuth;
 
-  RemoteDataSource(this.firebaseAuth);
+  FirebaseDataSource(this.firebaseAuth);
 
   Future<User?> getAuthUser() async {
     gaLogEvent(

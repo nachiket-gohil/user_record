@@ -7,6 +7,8 @@ import 'package:user_record/core/utility/snackbar.dart';
 import '../bloc/auth_cubit.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }

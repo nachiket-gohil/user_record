@@ -6,12 +6,30 @@ A new Flutter User Record project.
 
 To run this app setup Flutter version to this:
 [✓] Flutter (Channel stable, 3.22.0, on macOS 14.5 23F79 darwin-arm64, locale en-IN)
-
 [✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
-
 [✓] Xcode - develop for iOS and macOS (Xcode 15.4)
-
 [✓] Chrome - develop for the web ()
+
+## Overview
+
+AuthCheckerPage()
+- used to check the user is authenticated or not
+- if authenticated then go to UserListPage() else LoginPage()
+
+LoginPage()
+- used to login / signup the user
+
+UserListPage()
+- User list fetched snd displayed from API
+
+UserDetailsPage()
+- Select particular user to see the info
+
+Clean Code architecture followed along with Bloc-Cubit State management
+
+Testing could be done but this whole project developed in 10 hrs 
+due to deadline communicated with Akash Taide.
+
 
 ## Problem
 
