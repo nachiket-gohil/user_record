@@ -1,22 +1,33 @@
 import 'package:dio/dio.dart';
-import 'package:user_record/config/dio_mixin.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/constants/urls.dart';
-import '../model/auth_user_model.dart';
+import '../model/user_list_model.dart';
 
-class ApiDataSource with BaseDio {
-  ApiDataSource();
+class UserRemoteDataSource {
+  final Dio dio;
 
-  Future<List<UserModel>> getUsers() async {
-    Dio dio = await getBaseDio(requiredToken: true);
-    try {
-      final response = await dio.get(
-        Urls.users,
-      );
-      return (response.data as List).map((user) => UserModel.fromJson(user)).toList();
-    } on DioException catch (e) {
-      // Handle error here
-      throw Exception('Failed to load users');
-    }
+  UserRemoteDataSource(this.dio);
+
+  Future<List<UserListModel>> fetchUsers() async {
+    final response = await dio.get(Urls.baseUrl + Urls.users);
+    dio.interceptors.add(
+      LogInterceptor(
+        request: kDebugMode,
+        requestHeader: kDebugMode,
+        requestBody: kDebugMode,
+        responseHeader: kDebugMode,
+        responseBody: kDebugMode,
+        error: kDebugMode,
+      ),
+    );
+    print(">>> Fetched Usserrr at Source<<<");
+    return (response.data as List).map((json) => UserListModel.fromJson(json)).toList();
+  }
+
+  Future<UserListModel> fetchUserDetail(int id) async {
+    final response = await dio.get('${Urls.baseUrl}${Urls.users}/$id');
+    print(">>> Fetched Usserr Dettails at Source<<<");
+    return UserListModel.fromJson(response.data);
   }
 }

@@ -1,5 +1,3 @@
-// domain/usecases/logout_usecase.dart
-
 import '../repo/auth_repository.dart';
 
 class LogoutUseCase {
@@ -7,7 +5,7 @@ class LogoutUseCase {
 
   LogoutUseCase(this.repository);
 
-  Future<void> execute() {
+  Future<void> call() {
     return repository.logout();
   }
 }

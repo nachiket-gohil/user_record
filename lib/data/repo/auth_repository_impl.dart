@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../domain/entity/auth_user.dart';
 import '../../domain/repo/auth_repository.dart';
 import '../model/auth_user_model.dart';
@@ -7,6 +9,11 @@ class AuthRepositoryImpl implements AuthRepository {
   final RemoteDataSource remoteDataSource;
 
   AuthRepositoryImpl(this.remoteDataSource);
+
+  @override
+  Future<User?> getAuthUser() async {
+    return remoteDataSource.getAuthUser();
+  }
 
   @override
   Future<AuthUser> login(String email, String password) async {

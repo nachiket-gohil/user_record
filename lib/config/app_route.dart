@@ -16,23 +16,24 @@ class AppRoute {
   static const String detail = '/detail';
 
   static Route generateRoute(RouteSettings routerSettings) {
+    final int userId = (routerSettings.arguments ?? 0) as int;
     switch (routerSettings.name) {
       case splash:
         return Platform.isIOS
-            ? CupertinoPageRoute(builder: (_) => const SplashPage())
-            : MaterialPageRoute(builder: (_) => const SplashPage());
+            ? CupertinoPageRoute(builder: (_) => const AuthChecker())
+            : MaterialPageRoute(builder: (_) => const AuthChecker());
       case login:
         return Platform.isIOS
             ? CupertinoPageRoute(builder: (_) => LoginPage())
             : MaterialPageRoute(builder: (_) => LoginPage());
       case list:
         return Platform.isIOS
-            ? CupertinoPageRoute(builder: (_) => HomePage())
-            : MaterialPageRoute(builder: (_) => HomePage());
+            ? CupertinoPageRoute(builder: (_) => const UserListPage())
+            : MaterialPageRoute(builder: (_) => const UserListPage());
       case detail:
         return Platform.isIOS
-            ? CupertinoPageRoute(builder: (_) => const DetailPage())
-            : MaterialPageRoute(builder: (_) => const DetailPage());
+            ? CupertinoPageRoute(builder: (_) => UserDetailPage(userId: userId))
+            : MaterialPageRoute(builder: (_) => UserDetailPage(userId: userId));
       default:
         return errorRoute();
     }

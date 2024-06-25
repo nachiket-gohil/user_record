@@ -4,10 +4,10 @@ mixin GoogleAnalyticsMixin {
   static final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.instance;
 
   /// Basic method for Logging Custom Events
-  void gaLogEvent(
-    String eventName,
+  void gaLogEvent({
+    required String eventName,
     Map<String, Object>? eventValues,
-  ) async {
+  }) async {
     await firebaseAnalytics.logEvent(
       name: eventName,
       parameters: eventValues,

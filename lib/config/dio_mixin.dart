@@ -1,35 +1,74 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:user_record/config/analytics_mixin.dart';
 
-import '../core/constants/urls.dart';
+class DioClient {
+  final Dio dio;
+  final FirebaseAnalytics analytics;
+  final FirebaseAuth auth;
 
-mixin BaseDio {
-  Future<Dio> getBaseDio({required bool requiredToken}) async {
-    Map<String, String> headersMap = {};
-    headersMap['content-type'] = 'application/json';
+  DioClient(this.dio, this.analytics, this.auth) {
+    dio.interceptors.add(LoggingInterceptor(analytics, auth));
+  }
+}
 
-    BaseOptions options = BaseOptions(
-      baseUrl: Urls.baseUrl,
-      connectTimeout: const Duration(seconds: 5),
-      sendTimeout: const Duration(seconds: 5),
-      receiveTimeout: const Duration(seconds: 5),
-      responseType: ResponseType.json,
-      headers: headersMap,
-    );
+class LoggingInterceptor extends Interceptor with GoogleAnalyticsMixin {
+  final FirebaseAnalytics analytics;
+  final FirebaseAuth auth;
 
-    Dio dio = Dio(options);
+  LoggingInterceptor(this.analytics, this.auth);
 
-    dio.interceptors.add(
-      LogInterceptor(
-        request: kDebugMode,
-        requestHeader: kDebugMode,
-        requestBody: kDebugMode,
-        responseHeader: kDebugMode,
-        responseBody: kDebugMode,
-        error: kDebugMode,
-      ),
-    );
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    final user = auth.currentUser;
+    final userId = user?.uid ?? 'unknown';
 
-    return dio;
+    options.headers['user-id'] = userId;
+
+    final startTime = DateTime.now();
+
+    options.extra['startTime'] = startTime;
+
+    return super.onRequest(options, handler);
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) async {
+    final startTime = response.requestOptions.extra['startTime'] as DateTime?;
+    final endTime = DateTime.now();
+
+    if (startTime != null) {
+      final duration = endTime.difference(startTime).inMilliseconds;
+      gaLogEvent(
+        eventName: 'api_call',
+        eventValues: {
+          'path': response.requestOptions.path,
+          'duration': duration,
+        },
+      );
+    }
+
+    return super.onResponse(response, handler);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
+    final startTime = err.requestOptions.extra['startTime'] as DateTime?;
+    final endTime = DateTime.now();
+
+    if (startTime != null) {
+      final duration = endTime.difference(startTime).inMilliseconds;
+      gaLogEvent(
+        eventName: 'api_call_error',
+        eventValues: {
+          'path': err.requestOptions.path,
+          'duration': duration,
+          'error': err.message.toString(),
+        },
+      );
+    }
+
+    return super.onError(err, handler);
   }
 }

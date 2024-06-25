@@ -1,12 +1,11 @@
-import '../entity/auth_user.dart';
 import '../repo/auth_repository.dart';
 
-class SignUpUseCase {
+class SignupUseCase {
   final AuthRepository repository;
 
-  SignUpUseCase(this.repository);
+  SignupUseCase(this.repository);
 
-  Future<AuthUser> execute(String email, String password) {
+  Future<void> call(String email, String password) {
     return repository.signUp(email, password);
   }
 }

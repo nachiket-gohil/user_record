@@ -1,19 +1,19 @@
-import '../../domain/entity/auth_user.dart';
-import '../../domain/repo/auth_repository.dart';
-import '../model/auth_user_model.dart';
+import '../../domain/repo/user_repository.dart';
+import '../model/user_list_model.dart';
 import '../sources/api_data_source.dart';
 
-class UserRepositoryImpl implements AuthRepository {
-  final ApiDataSource apiDataSource;
+class UserRepositoryImpl implements UserRepository {
+  final UserRemoteDataSource userRemoteDataSource;
 
-  UserRepositoryImpl(this.apiDataSource);
+  UserRepositoryImpl(this.userRemoteDataSource);
 
   @override
-  Future<AuthUser> login(String email, String password) async {
-    UserModel userModel = await apiDataSource.login(email, password);
-    return AuthUser(
-      id: userModel.id,
-      email: userModel.email,
-    );
+  Future<List<UserListModel>> fetchUsers() async {
+    return await userRemoteDataSource.fetchUsers();
+  }
+
+  @override
+  Future<UserListModel> fetchUserDetail(int id) async {
+    return await userRemoteDataSource.fetchUserDetail(id);
   }
 }

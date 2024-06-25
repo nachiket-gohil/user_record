@@ -1,7 +1,7 @@
+import '../../data/model/user_list_model.dart';
+
 abstract class UserRepository {
-  // Future<AppUser> login(String email, String password);
-  //
-  // Future<AppUser> signUp(String email, String password);
-  //
-  // Future<void> logout();
+  Future<List<UserListModel>> fetchUsers();
+
+  Future<UserListModel> fetchUserDetail(int id);
 }
