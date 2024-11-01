@@ -1,0 +1,4 @@
+- add screen wise architecture
+- add designs
+- add web support navigation
+- separate login & signup screens
